@@ -12,7 +12,11 @@ const Home: NextPage = () => {
   const [inputFiles, setInputFiles] = useState<FileDetails[]>([])
 
   const handleReceiveFiles = async (files: File[]) => {
-    setInputFiles(await readAllFiles(files))
+    setInputFiles((await readAllFiles(files)).filter(file => file.parsed))
+  }
+
+  const handleAddFiles = async (files: File[]) => {
+    setInputFiles([...inputFiles, ...(await readAllFiles(files)).filter(file => file.parsed)])
   }
 
   return (
@@ -25,7 +29,7 @@ const Home: NextPage = () => {
 
       <Navbar/>
       { inputFiles.length ?
-        <FileActions files={inputFiles} onCancel={() => setInputFiles([])} /> :
+        <FileActions files={inputFiles} onCancel={() => setInputFiles([])} onAddFiles={handleAddFiles} /> :
         <FileDrop onReceiveFiles={handleReceiveFiles}/>
       }
     </div>

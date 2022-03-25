@@ -1,5 +1,6 @@
 import { useCallback } from "react"
 import { useDropzone } from "react-dropzone"
+import Label from "./label"
 
 interface FileDropArgsInterface {
   onReceiveFiles: (a: File[]) => void;
@@ -17,9 +18,9 @@ export default function FileDrop({ onReceiveFiles }: FileDropArgsInterface) {
     >
       <input {...getInputProps()} />
       {isDragActive ? (
-        <p>Drop the files here ...</p>
+        <Label>Drop your files here</Label>
       ) : (
-        <p>Drop files to convert here ...</p>
+        <Label>Drop files to convert here</Label>
       )}
     </div>
   )
