@@ -29,8 +29,11 @@ function parseOpenLyrics(content: string) {
       }
     ))
   }
-  console.log(xmlDoc)
-  window['parsed'] = [xmlDoc, parsed]
+
+  if(process.env.NODE_ENV !== 'production') {
+    (window as any)['parsed'] = [xmlDoc, parsed]
+    console.log(xmlDoc)
+  }
 
   return parsed
 }
