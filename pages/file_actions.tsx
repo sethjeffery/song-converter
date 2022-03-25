@@ -5,7 +5,7 @@ interface FileActionsArgsInterface {
   onCancel: () => void
 }
 
-export default function FileActions({ onCancel, files } : FileActionsArgsInterface) {
+export default function FileActions({ onCancel, files = [] } : FileActionsArgsInterface) {
   return (
     <div className="flex-1 w-full justify-center p-4 flex items-stretch">
       <div className="flex-1">
