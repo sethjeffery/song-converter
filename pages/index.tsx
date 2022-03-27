@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import { readAllFiles } from '../src/read_all_files'
-import { FileDetails } from '../types/file_details'
+import type { FileDetails } from '../types/file_details'
 import FileActions from './file_actions'
 import FileDrop from './file_drop'
 import Navbar from './navbar'
@@ -12,11 +12,11 @@ const Home: NextPage = () => {
   const [inputFiles, setInputFiles] = useState<FileDetails[]>([])
 
   const handleReceiveFiles = async (files: File[]) => {
-    setInputFiles((await readAllFiles(files)).filter(file => file.parsed))
+    setInputFiles(await readAllFiles(files))
   }
 
   const handleAddFiles = async (files: File[]) => {
-    setInputFiles([...inputFiles, ...(await readAllFiles(files)).filter(file => file.parsed)])
+    setInputFiles([...inputFiles, ...await readAllFiles(files)])
   }
 
   return (

@@ -1,13 +1,13 @@
 import { useCallback } from "react"
 import { useDropzone } from "react-dropzone"
-import { FileDetails } from "../types/file_details"
+import type { FileDetails } from "../types/file_details"
 import Button from "./button"
 import Label from "./label"
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faGears } from '@fortawesome/free-solid-svg-icons'
 import download from "../src/download"
-import convertChordPro from "../src/convert/convert_chord_pro"
-import convertOpenLyrics from "../src/convert/convert_open_lyrics"
+import writeChordPro from "../src/writer/write_chord_pro"
+import writeOpenLyrics from "../src/writer/write_open_lyrics"
 
 interface FileActionsArgsInterface {
   files: FileDetails[];
@@ -22,14 +22,14 @@ export default function FileActions({ onCancel, onAddFiles, files = [] } : FileA
   const handleConvertOpenLP = () => {
     files.forEach(file => download(
       file.name.replace(/\.\w+$/, '.xml'),
-      convertOpenLyrics(file.parsed)
+      writeOpenLyrics(file.content)
     ))
   }
 
   const handleConvertSongBook = () => {
     files.forEach(file => download(
       file.name.replace(/\.\w+$/, '.cho'),
-      convertChordPro(file.parsed)
+      writeChordPro(file.content)
     ))
   }
 
